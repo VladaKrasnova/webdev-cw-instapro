@@ -1,8 +1,7 @@
 import { USER_POSTS_PAGE } from "../routes.js";
 import { renderHeaderComponent } from "./header-component.js";
-import { posts, goToPage } from "../index.js";
 import { posts, goToPage, getToken, renderApp } from "../index.js";
- import { dislikePost, likePost } from "../api.js";
+import { dislikePost, likePost } from "../api.js";
 
 export function renderPostsPageComponent({ appEl }) {
   const listHtml = posts.map(post => {
