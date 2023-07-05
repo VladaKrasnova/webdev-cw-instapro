@@ -82,3 +82,50 @@ export function addNewPost({ token, description, imageUrl }) {
     })
   }).then(response => response.json());
 }
+
+export function getUserPosts({ token, id }) {
+  return fetch(`${postsHost}/user-posts/${id}`, {
+    method: "GET",
+    headers: {
+      Authorization: token
+    }
+  }).then(response => {
+    if (response.status === 401) {
+      throw new Error("Нет авторизации");
+    }
+
+    return response.json();
+  }).then(data => data.posts);
+}
+
+
+
+export function likePost({ token, id }) {
+  return fetch(`${postsHost}/${id}/like`, {
+    method: "POST",
+    headers: {
+      Authorization: token
+    }
+  }).then(response => {
+    if (response.status === 401) {
+      throw new Error('Только авторизованные пользователи могут лайкнуть пост');
+    }
+
+    return response.json();
+  }).then(data => data.post);
+}
+
+export function dislikePost({ token, id }) {
+  return fetch(`${postsHost}/${id}/dislike`, {
+    method: "POST",
+    headers: {
+      Authorization: token
+    }
+  }).then(response => {
+    if (response.status === 401) {
+      throw new Error('Только авторизованные пользователи могут лайкнуть пост');
+    }
+
+    return response.json();
+  }).then(data => data.post);
+}
